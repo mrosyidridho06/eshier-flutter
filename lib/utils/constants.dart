@@ -5,6 +5,6 @@ class Constant {
 
   static const String WORLD_NEWS_URL =
       'https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=$API_KEY';
-  static const String API='http://10.0.2.2:3000/api-docs';
+  static const String API='http://10.0.2.2:3000/';
   static const String barang='http://10.0.2.2:3000/barang';
 }

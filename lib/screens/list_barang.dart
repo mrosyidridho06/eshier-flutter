@@ -94,9 +94,10 @@ List<Item> generateItems(List<dynamic> listBarang) {
   var hasil = <Item>[];
   listBarang.forEach((element) {
     hasil.add(Item(
-        id: int.parse(element['id']),
-        namaBarang: element['namaBarang'] ?? "",
-        hargaBarang: int.parse(element['hargaBarang'])));
+      id: element['id'],
+      namaBarang: element['namaBarang'] ?? "",
+      hargaBarang: element['hargaBarang'] ?? 0,
+    ));
   });
   return hasil;
 }
@@ -128,7 +129,7 @@ class _BarangListState extends State<BarangList> {
       color: Colors.white,
       child: ExpansionTile(
         title: Text(
-          items.perihal,
+          items.namaBarang,
           style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
         ),
         collapsedTextColor: Colors.black,
@@ -142,12 +143,12 @@ class _BarangListState extends State<BarangList> {
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: [Text("Status"), Text("Nama Barang")]),
+                      children: [Text("Nama Barang")]),
                   SizedBox(width: 30),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: [Text(items.status), Text(items.perusahaan)],
+                    children: [Text(items.namaBarang), Text(items.hargaBarang.toString())],
                   )
                 ]),
                 Row(mainAxisAlignment: MainAxisAlignment.end, children: [

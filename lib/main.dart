@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/home.dart';
-import 'package:flutter_application_1/screens/list_barang.dart';
-import 'package:flutter_application_1/screens/login.dart';
-import 'package:flutter_application_1/screens/routes.dart';
+// import 'package:flutter_application_1/screens/list_barang.dart';
+// import 'package:flutter_application_1/screens/login.dart';
+// import 'package:flutter_application_1/screens/routes.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: LoginScreen(),
+      home: Home(),
     );
   }
 }

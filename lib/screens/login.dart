@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/list_barang.dart';
+import 'package:flutter_application_1/screens/home.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -75,7 +75,7 @@ class _State extends State<LoginScreen> {
                       onPressed: () {
                         Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (context) {
-                          return ListBarangScreen();
+                          return Home();
                         }));
                       },
                     )),

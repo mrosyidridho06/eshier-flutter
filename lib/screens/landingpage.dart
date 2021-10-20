@@ -8,6 +8,7 @@ class LandingPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
+            Padding(padding:)
         ],
         ),
       )

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/home.dart';
-import 'package:flutter_application_1/screens/daftar.dart';
+import 'package:flutter_application_1/screens/login.dart';
+import 'package:flutter_application_1/screens/list_barang.dart';
 
-class LoginScreen extends StatefulWidget {
+class DaftarScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new _State();
 }
 
-class _State extends State<LoginScreen> {
+class _State extends State<DaftarScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -15,7 +15,7 @@ class _State extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Login Page '),
+          title: Text('Daftar Page '),
         ),
         body: Padding(
             padding: EdgeInsets.all(10),
@@ -49,6 +49,16 @@ class _State extends State<LoginScreen> {
                   ),
                 ),
                 Container(
+                  padding: EdgeInsets.all(10),
+                  child: TextField(
+                    controller: nameController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Email',
+                    ),
+                  ),
+                ),
+                Container(
                   padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                   child: TextField(
                     obscureText: true,
@@ -63,11 +73,11 @@ class _State extends State<LoginScreen> {
                   onPressed: () {
                     Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (context) {
-                          return DaftarScreen();
+                          return LoginScreen();
                         }));
                   },
                   textColor: Colors.blue,
-                  child: Text('Tidak Punya Akun? Daftar'),
+                  child: Text('Sudah Punya Akun? Login'),
                 ),
                 Container(
                     height: 50,
@@ -75,11 +85,11 @@ class _State extends State<LoginScreen> {
                     child: RaisedButton(
                       textColor: Colors.white,
                       color: Colors.blue,
-                      child: Text('Login'),
+                      child: Text('Daftar'),
                       onPressed: () {
                         Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (context) {
-                          return Home();
+                          return ListBarangScreen();
                         }));
                       },
                     )),

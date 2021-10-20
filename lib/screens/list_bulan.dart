@@ -1,41 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/services/bulan.dart';
+import 'package:flutter_application_1/services/barang.dart';
 
-class ListBulanScreen extends StatefulWidget {
-  const ListBulanScreen({Key? key}) : super(key: key);
+class ListBarangScreen extends StatefulWidget {
+  const ListBarangScreen({Key? key}) : super(key: key);
 
   @override
-  _ListBulanScreenState createState() => _ListBulanScreenState();
+  _ListBarangScreenState createState() => _ListBarangScreenState();
 }
 
-class _ListBulanScreenState extends State<ListBulanScreen> {
+class _ListBarangScreenState extends State<ListBarangScreen> {
   var halaman = 1;
   var maxHalaman = 1;
   @override
   Widget build(BuildContext context) {
-    var bulanService = BulanService();
-    var generateAduan = [];
+    var barangService = BarangService();
+    var generateBarang = [];
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("List Bulan"),
+        title: Text("List Barang"),
       ),
       body: FutureBuilder<List<dynamic>>(
-          future: bulanService.fetchBulanList,
+          future: barangService.fetchBarangList,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              generateAduan = generateItems(snapshot.data ?? <dynamic>[]);
-              maxHalaman = (generateAduan.length / 10).ceil();
+              generateBarang = generateItems(snapshot.data ?? <dynamic>[]);
+              maxHalaman = (generateBarang.length / 10).ceil();
               return Scaffold(
                 body: Padding(
                   padding:
                       EdgeInsets.only(top: 25, left: 10, right: 10, bottom: 25),
                   child: SingleChildScrollView(
-                    child: BulanList(
-                        aduanList: generateAduan.sublist(
+                    child: BarangList(
+                        barangList: generateBarang.sublist(
                             (halaman - 1) * 10,
-                            halaman * 10 > generateAduan.length
-                                ? generateAduan.length
+                            halaman * 10 > generateBarang.length
+                                ? generateBarang.length
                                 : halaman * 10)),
                   ),
                 ),
@@ -84,54 +84,35 @@ class _ListBulanScreenState extends State<ListBulanScreen> {
 }
 
 class Item {
-  int id_aduan;
-  String perihal;
-  String perusahaan;
-  bool isExpanded;
-  String nama_departemen;
-  String nama_unit;
-  int level;
-  String status;
-  bool merah;
-  Item(
-      {required this.id_aduan,
-      required this.perihal,
-      required this.perusahaan,
-      this.isExpanded = false,
-      required this.nama_departemen,
-      required this.nama_unit,
-      required this.level,
-      required this.status,
-      this.merah = false});
+  int id;
+  String namaBarang;
+  int hargaBarang;
+  Item({required this.id, required this.namaBarang, required this.hargaBarang});
 }
 
-List<Item> generateItems(List<dynamic> listAduan) {
+List<Item> generateItems(List<dynamic> listBarang) {
   var hasil = <Item>[];
-  listAduan.forEach((element) {
+  listBarang.forEach((element) {
     hasil.add(Item(
-        id_aduan: int.parse(element['id_aduan']),
-        perihal: element['perihal'] ?? "",
-        perusahaan: element["nama_perusahaan"] ?? "",
-        nama_departemen: element['nama_departemen'] ?? "",
-        nama_unit: element['nama_unit'] ?? "",
-        status: element['status'] ?? "",
-        level: int.parse(element['level']),
-        merah: element['merah'] == null ? false : true));
+      id: element['id'],
+      namaBarang: element['namaBarang'] ?? "",
+      hargaBarang: element['hargaBarang'] ?? 0,
+    ));
   });
   return hasil;
 }
 
-class BulanList extends StatefulWidget {
-  final List<dynamic> aduanList;
-  const BulanList({Key? key, required this.aduanList}) : super(key: key);
+class BarangList extends StatefulWidget {
+  final List<dynamic> barangList;
+  const BarangList({Key? key, required this.barangList}) : super(key: key);
   @override
-  _BulanListState createState() => _BulanListState();
+  _BarangListState createState() => _BarangListState();
 }
 
-class _BulanListState extends State<BulanList> {
+class _BarangListState extends State<BarangList> {
   @override
   Widget build(BuildContext context) {
-    var data = widget.aduanList;
+    var data = widget.barangList;
     return ListView.builder(
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
@@ -148,12 +129,12 @@ class _BulanListState extends State<BulanList> {
       color: Colors.white,
       child: ExpansionTile(
         title: Text(
-          items.perihal,
+          items.namaBarang,
           style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
         ),
         collapsedTextColor: Colors.black,
         textColor: Colors.black,
-        subtitle: Text("Id aduan " + items.id_aduan.toString()),
+        subtitle: Text("Id Barang " + items.id.toString()),
         children: <Widget>[
           Padding(
               padding: EdgeInsets.all(20),
@@ -162,12 +143,12 @@ class _BulanListState extends State<BulanList> {
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: [Text("Status"), Text("Nama Perusahaan")]),
+                      children: [Text("Nama Barang")]),
                   SizedBox(width: 30),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: [Text(items.status), Text(items.perusahaan)],
+                    children: [Text(items.namaBarang), Text(items.hargaBarang.toString())],
                   )
                 ]),
                 Row(mainAxisAlignment: MainAxisAlignment.end, children: [

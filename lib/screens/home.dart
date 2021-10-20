@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/list_barang.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -51,15 +52,15 @@ class Home extends StatelessWidget {
                   spacing: 20.0,
                   runSpacing: 20.0,
                   children: [
-                    
                     SizedBox(
                       width: 160.0,
-                      height: 160.0,
+                      height: 160.0,  
                       child: Card(
                         color: Color.fromARGB(255, 255, 255, 255),
                         elevation: 2.0,
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0)),
+                            borderRadius: BorderRadius.circular(8.0)
+                          ),
                         child: Center(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),

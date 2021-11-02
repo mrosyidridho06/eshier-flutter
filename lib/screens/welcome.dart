@@ -10,9 +10,6 @@ class _State extends State<Welcome> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-void _showtoas () {
-  
-}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,23 +66,30 @@ void _showtoas () {
                     )),
                 
                 Container(
-                    height: 65,
-                    padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
-                    child: RaisedButton(
-                      textColor: Colors.white,
-                      color: Colors.blue,
-                      child: Text('Sign In'),
-                      onPressed: () => Navigator.pushNamed(context, route.loginPage),
-                    )),
+                  padding: EdgeInsets.fromLTRB(10, 10, 10, 5),
+                  child: ElevatedButton(onPressed: () => Navigator.pushNamed(context, route.loginPage), 
+                              child: const Text('Sign In'),
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.blue,
+                                fixedSize: const Size(300, 50),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50))),
+                            
+                            ),
+                  ),
                 Container(
-                    height: 65,
+                    // height: 65,
                     padding: EdgeInsets.fromLTRB(10, 10, 10, 5),
-                    child: RaisedButton(
-                      textColor: Colors.white,
-                      color: Colors.black,
-                      child: Text('Sign Up'),
-                      onPressed: () => Navigator.pushNamed(context, route.daftarPage),
-                    )),
+                    child: ElevatedButton(onPressed: () => Navigator.pushNamed(context, route.daftarPage), 
+                              child: const Text('Sign Up'),
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.black45,
+                                fixedSize: const Size(300, 50),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50))),
+                            
+                            ),
+                    ),
               ],
             )));
   }

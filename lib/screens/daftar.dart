@@ -69,9 +69,8 @@ class _State extends State<DaftarScreen> {
                     ),
                   ),
                 ),
-                FlatButton(
+                TextButton(
                   onPressed: () => Navigator.pushNamed(context, route.loginPage),
-                  textColor: Colors.blue,
                   child: Text('Sudah Punya Akun? Login'),
                 ),
                 Container(

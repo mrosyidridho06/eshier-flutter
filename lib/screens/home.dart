@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/login.dart';
-import 'package:flutter_application_1/screens/welcome.dart';
+import 'package:flutter_application_1/screens/route.dart' as route;
 
 class Home extends StatelessWidget {
   @override
@@ -55,14 +54,15 @@ class Home extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: 160.0,
-                      height: 160.0,  
+                      height: 160.0, 
                       child: Card(
                         color: Color.fromARGB(255, 255, 255, 255),
                         elevation: 2.0,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0)
                           ),
-                        child: Center(
+                        child: new InkWell(
+                          onTap: () => Navigator.pushNamed(context, route.barangPage),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
@@ -91,7 +91,8 @@ class Home extends StatelessWidget {
                         elevation: 2.0,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0)),
-                        child: Center(
+                        child: new InkWell(
+                          onTap: () => Navigator.pushNamed(context, route.barangPage),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
@@ -120,7 +121,8 @@ class Home extends StatelessWidget {
                         elevation: 2.0,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0)),
-                        child: Center(
+                        child: new InkWell(
+                          onTap: () => Navigator.pushNamed(context, route.barangPage),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
@@ -149,7 +151,8 @@ class Home extends StatelessWidget {
                         elevation: 2.0,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0)),
-                        child: Center(
+                        child: new InkWell(
+                          onTap: () => Navigator.pushNamed(context, route.barangPage),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(

@@ -58,9 +58,8 @@ class _State extends State<LoginScreen> {
                     ),
                   ),
                 ),
-                FlatButton(
+                TextButton(
                   onPressed: () => Navigator.pushNamed(context, route.daftarPage),
-                  textColor: Colors.blue,
                   child: Text('Tidak Punya Akun? Daftar'),
                 ),
                 Container(

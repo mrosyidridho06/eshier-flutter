@@ -10,9 +10,6 @@ class _State extends State<Welcome> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-void _showtoas () {
-  
-}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +71,7 @@ void _showtoas () {
                               child: const Text('Sign In'),
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.blue,
-                                fixedSize: const Size(300, 70),
+                                fixedSize: const Size(300, 50),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(50))),
                             
@@ -87,7 +84,7 @@ void _showtoas () {
                               child: const Text('Sign Up'),
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.black45,
-                                fixedSize: const Size(300, 70),
+                                fixedSize: const Size(300, 50),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(50))),
                             

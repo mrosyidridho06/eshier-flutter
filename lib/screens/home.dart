@@ -10,8 +10,7 @@ class Home extends StatelessWidget {
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [     
-              
+          children: [
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(

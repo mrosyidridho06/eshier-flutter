@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/login.dart';
-import 'package:flutter_application_1/screens/list_barang.dart';
+import 'package:flutter_application_1/screens/route.dart' as route;
 
 class DaftarScreen extends StatefulWidget {
   @override
@@ -9,6 +8,7 @@ class DaftarScreen extends StatefulWidget {
 
 class _State extends State<DaftarScreen> {
   TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
@@ -51,7 +51,7 @@ class _State extends State<DaftarScreen> {
                 Container(
                   padding: EdgeInsets.all(10),
                   child: TextField(
-                    controller: nameController,
+                    controller: emailController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Email',
@@ -70,28 +70,16 @@ class _State extends State<DaftarScreen> {
                   ),
                 ),
                 FlatButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) {
-                          return LoginScreen();
-                        }));
-                  },
+                  onPressed: () => Navigator.pushNamed(context, route.loginPage),
                   textColor: Colors.blue,
                   child: Text('Sudah Punya Akun? Login'),
                 ),
                 Container(
                     height: 50,
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: RaisedButton(
-                      textColor: Colors.white,
-                      color: Colors.blue,
+                    child: ElevatedButton(
                       child: Text('Daftar'),
-                      onPressed: () {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) {
-                          return ListBarangScreen();
-                        }));
-                      },
+                      onPressed: () => Navigator.pushNamed(context, route.homePage),
                     )),
               ],
             )));

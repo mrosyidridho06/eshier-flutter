@@ -9,6 +9,7 @@ class DaftarScreen extends StatefulWidget {
 
 class _State extends State<DaftarScreen> {
   TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
@@ -51,7 +52,7 @@ class _State extends State<DaftarScreen> {
                 Container(
                   padding: EdgeInsets.all(10),
                   child: TextField(
-                    controller: nameController,
+                    controller: emailController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Email',

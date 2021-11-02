@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/login.dart';
+import 'package:flutter_application_1/screens/daftar.dart';
 
 class Welcome extends StatefulWidget {
   @override
@@ -10,6 +11,9 @@ class _State extends State<Welcome> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+void _showtoas () {
+  
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,8 +46,8 @@ class _State extends State<Welcome> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       new Container(
-                        width: 300.0,
-                        height: 230.0,
+                        width: 250.0,
+                        height: 200.0,
                         decoration: new BoxDecoration(
                             // shape: BoxShape.box,
                             image: new DecorationImage(
@@ -55,7 +59,7 @@ class _State extends State<Welcome> {
                   ),
                 ),
                 Container(
-                  height: 300,
+                  height: 200,
                     alignment: Alignment.center,
                     padding: EdgeInsets.all(10),
                     child: Text('Aplikasi untuk menghimpun atau menghitung transaksi penjualan dengna memanfaatkan teknologi informasi sehingga proses penjualan menjadi lebih cepat dan akurat',
@@ -89,7 +93,7 @@ class _State extends State<Welcome> {
                       onPressed: () {
                         Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (context) {
-                          return LoginScreen();
+                          return DaftarScreen();
                         }));
                       },
                     )),

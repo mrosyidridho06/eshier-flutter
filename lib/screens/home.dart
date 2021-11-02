@@ -10,21 +10,6 @@ class Home extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Container(
-                    // height: 50,
-                    // padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    // child: RaisedButton(
-                    //   textColor: Colors.white,
-                    //   color: Colors.blue,
-                    //   child: Text('Log out'),
-                    //   onPressed: () {
-                    //     Navigator.pushReplacement(context,
-                    //         MaterialPageRoute(builder: (context) {
-                    //       return Welcome();
-                    //     }));
-                    //   },
-                    // )),
-              
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(

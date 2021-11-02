@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/route.dart' as route;
 
-
 class LoginScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new _State();

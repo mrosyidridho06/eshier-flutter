@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/login.dart';
-import 'package:flutter_application_1/screens/daftar.dart';
+import 'package:flutter_application_1/screens/route.dart' as route;
 
 class Welcome extends StatefulWidget {
   @override
@@ -76,12 +75,7 @@ void _showtoas () {
                       textColor: Colors.white,
                       color: Colors.blue,
                       child: Text('Sign In'),
-                      onPressed: () {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) {
-                          return LoginScreen();
-                        }));
-                      },
+                      onPressed: () => Navigator.pushNamed(context, route.loginPage),
                     )),
                 Container(
                     height: 65,
@@ -90,12 +84,7 @@ void _showtoas () {
                       textColor: Colors.white,
                       color: Colors.black,
                       child: Text('Sign Up'),
-                      onPressed: () {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) {
-                          return DaftarScreen();
-                        }));
-                      },
+                      onPressed: () => Navigator.pushNamed(context, route.daftarPage),
                     )),
               ],
             )));

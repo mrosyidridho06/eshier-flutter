@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/home.dart';
-import 'package:flutter_application_1/screens/daftar.dart';
+import 'package:flutter_application_1/screens/route.dart' as route;
+
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -60,12 +60,7 @@ class _State extends State<LoginScreen> {
                   ),
                 ),
                 FlatButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) {
-                          return DaftarScreen();
-                        }));
-                  },
+                  onPressed: () => Navigator.pushNamed(context, route.daftarPage),
                   textColor: Colors.blue,
                   child: Text('Tidak Punya Akun? Daftar'),
                 ),
@@ -76,12 +71,7 @@ class _State extends State<LoginScreen> {
                       textColor: Colors.white,
                       color: Colors.blue,
                       child: Text('Login'),
-                      onPressed: () {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) {
-                          return Home();
-                        }));
-                      },
+                      onPressed: () => Navigator.pushNamed(context, route.homePage),
                     )),
               ],
             )));

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/daftar.dart';
-import 'package:flutter_application_1/screens/home.dart';
-import 'package:flutter_application_1/screens/login.dart';
-import 'package:flutter_application_1/screens/welcome.dart';
+
+import 'package:flutter_application_1/screens/route.dart' as route;
+
 // import 'package:flutter_application_1/screens/list_barang.dart';
 // import 'package:flutter_application_1/screens/login.dart';
 // import 'package:flutter_application_1/screens/routes.dart';
@@ -18,7 +17,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter kelompok 1',
       theme: ThemeData(
-        
         // This is the theme of your application.
         //
         // Try running your application with "flutter run". You'll see the
@@ -30,7 +28,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: Welcome(),
+      onGenerateRoute: route.controller,
+      initialRoute: route.welcomePage,
     );
   }
 }

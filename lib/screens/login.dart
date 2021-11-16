@@ -59,7 +59,7 @@ class _State extends State<LoginScreen> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () => Navigator.pushNamed(context, route.daftarPage),
+                  onPressed: () => Navigator.pushReplacementNamed(context, route.daftarPage),
                   child: Text('Tidak Punya Akun? Daftar'),
                 ),
                 Container(
@@ -67,7 +67,7 @@ class _State extends State<LoginScreen> {
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: ElevatedButton(
                       child: Text('Login'),
-                      onPressed: () => Navigator.pushNamed(context, route.homePage),
+                      onPressed: () => Navigator.pushReplacementNamed(context, route.homePage),
                     )),
               ],
             )));

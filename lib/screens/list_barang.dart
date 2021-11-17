@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/services/barang.dart';
+import 'package:flutter_application_1/retrofit_generate.dart';
+import 'package:dio/dio.dart';
 
 class ListBarangScreen extends StatefulWidget {
   const ListBarangScreen({Key? key}) : super(key: key);
@@ -11,21 +12,29 @@ class ListBarangScreen extends StatefulWidget {
 class _ListBarangScreenState extends State<ListBarangScreen> {
   var halaman = 1;
   var maxHalaman = 1;
+  late final listBarang;
   @override
   Widget build(BuildContext context) {
-    var barangService = BarangService();
-    var generateBarang = [];
+    final dio = Dio();
+    final client = RestClient(dio);
+    this.listBarang = client.getBarangs();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text("List Barang"),
       ),
-      body: FutureBuilder<List<dynamic>>(
-          future: barangService.fetchBarangList,
+      body: FutureBuilder<List<Barang>>(
+          future: listBarang,
           builder: (context, snapshot) {
+            print("tes");
+            print(snapshot);
             if (snapshot.hasData) {
-              generateBarang = generateItems(snapshot.data ?? <dynamic>[]);
-              maxHalaman = (generateBarang.length / 10).ceil();
+              List<Barang> generateBarang = snapshot.data??[];
+              if(generateBarang==null){
+                maxHalaman=1;
+              }else{
+                maxHalaman = (generateBarang.length / 10).ceil();
+              }
               return Scaffold(
                 body: Padding(
                   padding:
@@ -81,25 +90,6 @@ class _ListBarangScreenState extends State<ListBarangScreen> {
           }),
     );
   }
-}
-
-class Item {
-  int id;
-  String namaBarang;
-  int hargaBarang;
-  Item({required this.id, required this.namaBarang, required this.hargaBarang});
-}
-
-List<Item> generateItems(List<dynamic> listBarang) {
-  var hasil = <Item>[];
-  listBarang.forEach((element) {
-    hasil.add(Item(
-      id: element['id'],
-      namaBarang: element['namaBarang'] ?? "",
-      hargaBarang: element['hargaBarang'] ?? 0,
-    ));
-  });
-  return hasil;
 }
 
 class BarangList extends StatefulWidget {

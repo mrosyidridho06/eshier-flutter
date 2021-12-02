@@ -21,8 +21,6 @@ abstract class RestClient{
   @GET('/barang/{id}')
   Future<Barang> getBarang(@Path() int id);
 
-  @POST('/barang')
-  Future<HttpResponse> addBarang(@Body() Barang barang);
 }
 
 @JsonSerializable()

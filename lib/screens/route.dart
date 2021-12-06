@@ -41,7 +41,6 @@ Route<dynamic> controller(RouteSettings settings) {
       return MaterialPageRoute(builder: (context)=> ListTransaksiScreen());
     case transaksiDetailPage:
       final args = settings.arguments as ScreenArguments;
-
       return MaterialPageRoute(
           builder: (context){
             return DetailTransaksiScreen(

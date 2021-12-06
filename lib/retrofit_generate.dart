@@ -33,7 +33,7 @@ abstract class RestClient{
   Future<List<Transaksi>> getTransaksi();
 
   @GET('/transaksi/{id}')
-  Future<DetailTransaksi> getTransaksiById(@Path() int id);
+  Future<Transaksi> getTransaksiById(@Path() int id);
 
   @POST('/transaksi')
   Future<Success> addTransaksi(@Body() Transaksi transaksi);
@@ -53,23 +53,24 @@ class Barang{
 
 @JsonSerializable()
 class Transaksi{
-  Transaksi({required this.id, required this.waktu, required this.totalTransaksi});
+  Transaksi({required this.id, required this.waktu, required this.totalTransaksi, this.barang=const []});
   final int id;
   final DateTime waktu;
   final int totalTransaksi;
+  final List<DetailTransaksi>? barang;
   factory Transaksi.fromJson(Map<String, dynamic> json)=> _$TransaksiFromJson(json);
   Map<String, dynamic> toJson()=>_$TransaksiToJson(this);
 }
 
 @JsonSerializable()
 class DetailTransaksi{
-  DetailTransaksi({required this.id, required this.waktu, required this.listBarang});
-  final int id;
-  final DateTime waktu;
-  final List<Barang> listBarang;
+  DetailTransaksi({required this.jumlah, required this.transaksi_detail});
+  final int jumlah;
+  final Barang transaksi_detail;
   factory DetailTransaksi.fromJson(Map<String, dynamic> json)=>_$DetailTransaksiFromJson(json);
   Map<String, dynamic> toJson()=>_$DetailTransaksiToJson(this);
 }
+
 
 @JsonSerializable()
 class Success{

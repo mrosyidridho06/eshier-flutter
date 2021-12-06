@@ -157,7 +157,11 @@ class _TransaksiListState extends State<TransaksiList> {
                 Row(children:[
                   ElevatedButton(
                     child: Text('Detail'),
-                    onPressed: () => Navigator.pushReplacementNamed(context, route.transaksiDetailPage),
+                    onPressed: () => Navigator.pushReplacementNamed(
+                        context,
+                        route.transaksiDetailPage,
+                        arguments: route.ScreenArguments(items.id)
+                    ),
                     style: ElevatedButton.styleFrom(
                       primary: Colors.deepOrangeAccent
                     )

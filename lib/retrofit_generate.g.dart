@@ -25,6 +25,9 @@ Transaksi _$TransaksiFromJson(Map<String, dynamic> json) {
     id: json['id'] as int,
     waktu: DateTime.parse(json['waktu'] as String),
     totalTransaksi: json['totalTransaksi'] as int,
+    barang: (json['barang']   as List<dynamic>?)
+        ?.map((e) => DetailTransaksi.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 
@@ -32,23 +35,21 @@ Map<String, dynamic> _$TransaksiToJson(Transaksi instance) => <String, dynamic>{
       'id': instance.id,
       'waktu': instance.waktu.toIso8601String(),
       'totalTransaksi': instance.totalTransaksi,
+      'barang': instance.barang,
     };
 
 DetailTransaksi _$DetailTransaksiFromJson(Map<String, dynamic> json) {
   return DetailTransaksi(
-    id: json['id'] as int,
-    waktu: DateTime.parse(json['waktu'] as String),
-    listBarang: (json['listBarang'] as List<dynamic>)
-        .map((e) => Barang.fromJson(e as Map<String, dynamic>))
-        .toList(),
+    jumlah: json['jumlah'] as int,
+    transaksi_detail:
+        Barang.fromJson(json['transaksi_detail'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$DetailTransaksiToJson(DetailTransaksi instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'waktu': instance.waktu.toIso8601String(),
-      'listBarang': instance.listBarang,
+      'jumlah': instance.jumlah,
+      'transaksi_detail': instance.transaksi_detail,
     };
 
 Success _$SuccessFromJson(Map<String, dynamic> json) {
@@ -142,17 +143,17 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<DetailTransaksi> getTransaksiById(id) async {
+  Future<Transaksi> getTransaksiById(id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<DetailTransaksi>(
+        _setStreamType<Transaksi>(
             Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
                 .compose(_dio.options, '/transaksi/$id',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = DetailTransaksi.fromJson(_result.data!);
+    final value = Transaksi.fromJson(_result.data!);
     return value;
   }
 

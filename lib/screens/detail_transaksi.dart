@@ -4,84 +4,77 @@ import 'package:dio/dio.dart';
 
 import 'package:flutter_application_1/screens/route.dart' as route;
 
-class ListBarangScreen extends StatefulWidget {
-  const ListBarangScreen({Key? key}) : super(key: key);
+class DetailTransaksiScreen extends StatefulWidget {
+  final int id;
+  const DetailTransaksiScreen({Key? key, required this.id}) : super(key: key);
 
   @override
-  _ListBarangScreenState createState() => _ListBarangScreenState();
+  _DetailTransaksiScreenState createState() => _DetailTransaksiScreenState();
 }
 
-class _ListBarangScreenState extends State<ListBarangScreen> {
+class _DetailTransaksiScreenState extends State<DetailTransaksiScreen> {
   var halaman = 1;
   var maxHalaman = 1;
-  late final listBarang;
+  late final Future<Transaksi> detailTransaksi;
   @override
   Widget build(BuildContext context) {
     final dio = Dio();
     final client = RestClient(dio);
-    this.listBarang = client.getBarangs();
+    this.detailTransaksi = client.getTransaksiById(widget.id);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("List Barang"),
+        title: Text("Detail Transaksi"),
         backgroundColor: Colors.cyan,
       ),
-      body: FutureBuilder<List<Barang>>(
-          future: listBarang,
+      body: FutureBuilder<Transaksi>(
+          future: detailTransaksi,
           builder: (context, snapshot) {
+            print(snapshot);
             if (snapshot.hasData) {
-              List<Barang> generateBarang = snapshot.data??[];
-              if(generateBarang==null){
-                maxHalaman=1;
-              }else{
-                maxHalaman = (generateBarang.length / 10).ceil();
-              }
+              Transaksi? transaksi = snapshot.data;
+              print(transaksi?.barang);
               return Scaffold(
                 body: Padding(
                   padding:
                   EdgeInsets.only(top: 25, left: 10, right: 10, bottom: 25),
                   child: SingleChildScrollView(
-                    child: BarangList(
-                        barangList: generateBarang.sublist(
-                            (halaman - 1) * 10,
-                            halaman * 10 > generateBarang.length
-                                ? generateBarang.length
-                                : halaman * 10)),
-                  ),
-                ),
-                backgroundColor: Colors.white10,
-                bottomNavigationBar: BottomAppBar(
-                  color: Colors.cyan,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                        child: Icon(Icons.arrow_left),
-                        style: TextButton.styleFrom(primary: Colors.white),
-                        onPressed: halaman == 1
-                            ? null
-                            : () {
-                          setState(() {
-                            halaman--;
-                          });
-                        },
-                      ),
-                      Text(
-                        halaman.toString(),
-                        style: TextStyle(fontSize: 15, color: Colors.white),
-                      ),
-                      TextButton(
-                        child: Icon(Icons.arrow_right),
-                        style: TextButton.styleFrom(primary: Colors.white),
-                        onPressed: halaman + 1 > maxHalaman
-                            ? null
-                            : () {
-                          setState(() {
-                            halaman++;
-                          });
-                        },
-                      ),
-                    ],
+                    child: Column(
+                      children:[
+                        Row(
+                          children:[
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text("Id Transaksi"),
+                                Text("Tanggal Transaksi"),
+                                Text("Total Transaksi")
+                              ],
+                            ),
+                            SizedBox(width: 30),
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children:[
+                                  Text(
+                                      transaksi!.id.toString()??""
+                                  ),
+                                  Text(
+                                      transaksi!.waktu.toString()??""
+                                  ),
+                                  Text(
+                                      transaksi!.totalTransaksi.toString()??""
+                                  )
+                                ]
+                            )
+                          ]
+                        ),
+
+                        BarangList(
+                        barangList: transaksi!.barang??[],)
+                      ]
+                    )
                   ),
                 ),
               );
@@ -89,21 +82,13 @@ class _ListBarangScreenState extends State<ListBarangScreen> {
               return Center(child: CircularProgressIndicator());
             }
           }),
-      floatingActionButton:FloatingActionButton.extended(
-          onPressed: () => Navigator.pushReplacementNamed(context, route.barangAddPage),
-          label: const Icon(Icons.add_circle_outline),
-          backgroundColor: Colors.cyan,
-          foregroundColor: Colors.white
-
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
 
 class BarangList extends StatefulWidget {
-  final List<dynamic> barangList;
-  const BarangList({Key? key, required this.barangList}) : super(key: key);
+  final List<DetailTransaksi> barangList;
+  const BarangList({Key? key, this.barangList=const []}) : super(key: key);
   @override
   _BarangListState createState() => _BarangListState();
 }
@@ -123,17 +108,17 @@ class _BarangListState extends State<BarangList> {
     );
   }
 
-  Widget _buildPlayerModelList(items) {
+  Widget _buildPlayerModelList(DetailTransaksi items) {
     return Card(
       color: Colors.white,
       child: ExpansionTile(
         title: Text(
-          items.namaBarang,
+          items.transaksi_detail.namaBarang,
           style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
         ),
         collapsedTextColor: Colors.black,
         textColor: Colors.black,
-        subtitle: Text("Id Barang " + items.id.toString()),
+        subtitle: Text("Id Barang " + items.transaksi_detail.id.toString()),
         children: <Widget>[
           Padding(
               padding: EdgeInsets.all(20),
@@ -153,7 +138,12 @@ class _BarangListState extends State<BarangList> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: [Text(items.namaBarang), Text(items.hargaBarang.toString())],
+                    children: [
+                      Text(items.transaksi_detail.namaBarang),
+                      Text(items.transaksi_detail.hargaBarang.toString()),
+                      Text(items.jumlah.toString()),
+                      Text((items.jumlah*items.transaksi_detail.hargaBarang).toString())
+                    ],
                   )
                 ]),
 

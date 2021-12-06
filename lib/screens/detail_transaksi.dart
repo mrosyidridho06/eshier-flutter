@@ -39,7 +39,7 @@ class _ListBarangScreenState extends State<ListBarangScreen> {
               return Scaffold(
                 body: Padding(
                   padding:
-                      EdgeInsets.only(top: 25, left: 10, right: 10, bottom: 25),
+                  EdgeInsets.only(top: 25, left: 10, right: 10, bottom: 25),
                   child: SingleChildScrollView(
                     child: BarangList(
                         barangList: generateBarang.sublist(
@@ -61,10 +61,10 @@ class _ListBarangScreenState extends State<ListBarangScreen> {
                         onPressed: halaman == 1
                             ? null
                             : () {
-                                setState(() {
-                                  halaman--;
-                                });
-                              },
+                          setState(() {
+                            halaman--;
+                          });
+                        },
                       ),
                       Text(
                         halaman.toString(),
@@ -76,10 +76,10 @@ class _ListBarangScreenState extends State<ListBarangScreen> {
                         onPressed: halaman + 1 > maxHalaman
                             ? null
                             : () {
-                                setState(() {
-                                  halaman++;
-                                });
-                              },
+                          setState(() {
+                            halaman++;
+                          });
+                        },
                       ),
                     ],
                   ),
@@ -142,7 +142,13 @@ class _BarangListState extends State<BarangList> {
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: [Text("Nama Barang")]),
+                      children: [
+                        Text("Nama Barang"),
+                        Text("Harga Barang"),
+                        Text("Jumlah"),
+                        Text("Total Harga")
+                      ]
+                  ),
                   SizedBox(width: 30),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,7 +156,7 @@ class _BarangListState extends State<BarangList> {
                     children: [Text(items.namaBarang), Text(items.hargaBarang.toString())],
                   )
                 ]),
-                
+
               ]))
         ],
       ),

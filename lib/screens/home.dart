@@ -92,7 +92,7 @@ class Home extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0)),
                         child: new InkWell(
-                          onTap: () => Navigator.pushNamed(context, route.barangPage),
+                          onTap: () => Navigator.pushNamed(context, route.transaksiPage),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(

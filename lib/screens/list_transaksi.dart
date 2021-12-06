@@ -4,48 +4,47 @@ import 'package:dio/dio.dart';
 
 import 'package:flutter_application_1/screens/route.dart' as route;
 
-class ListBarangScreen extends StatefulWidget {
-  const ListBarangScreen({Key? key}) : super(key: key);
+class ListTransaksiScreen extends StatefulWidget {
+  const ListTransaksiScreen({Key? key}) : super(key: key);
 
   @override
-  _ListBarangScreenState createState() => _ListBarangScreenState();
+  _ListTransaksiScreenState createState() => _ListTransaksiScreenState();
 }
 
-class _ListBarangScreenState extends State<ListBarangScreen> {
+class _ListTransaksiScreenState extends State<ListTransaksiScreen> {
   var halaman = 1;
   var maxHalaman = 1;
-  late final listBarang;
+  late final listTransaksi;
   @override
   Widget build(BuildContext context) {
     final dio = Dio();
     final client = RestClient(dio);
-    this.listBarang = client.getBarangs();
+    this.listTransaksi = client.getTransaksi();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("List Barang"),
-        backgroundColor: Colors.cyan,
+        title: Text("List Transaksi"),
       ),
-      body: FutureBuilder<List<Barang>>(
-          future: listBarang,
+      body: FutureBuilder<List<Transaksi>>(
+          future: listTransaksi,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              List<Barang> generateBarang = snapshot.data??[];
-              if(generateBarang==null){
+              List<Transaksi> generateTransaksi = snapshot.data??[];
+              if(generateTransaksi==null){
                 maxHalaman=1;
               }else{
-                maxHalaman = (generateBarang.length / 10).ceil();
+                maxHalaman = (generateTransaksi.length / 10).ceil();
               }
               return Scaffold(
                 body: Padding(
                   padding:
-                      EdgeInsets.only(top: 25, left: 10, right: 10, bottom: 25),
+                  EdgeInsets.only(top: 25, left: 10, right: 10, bottom: 25),
                   child: SingleChildScrollView(
-                    child: BarangList(
-                        barangList: generateBarang.sublist(
+                    child: TransaksiList(
+                        transaksiList: generateTransaksi.sublist(
                             (halaman - 1) * 10,
-                            halaman * 10 > generateBarang.length
-                                ? generateBarang.length
+                            halaman * 10 > generateTransaksi.length
+                                ? generateTransaksi.length
                                 : halaman * 10)),
                   ),
                 ),
@@ -61,10 +60,10 @@ class _ListBarangScreenState extends State<ListBarangScreen> {
                         onPressed: halaman == 1
                             ? null
                             : () {
-                                setState(() {
-                                  halaman--;
-                                });
-                              },
+                          setState(() {
+                            halaman--;
+                          });
+                        },
                       ),
                       Text(
                         halaman.toString(),
@@ -76,10 +75,10 @@ class _ListBarangScreenState extends State<ListBarangScreen> {
                         onPressed: halaman + 1 > maxHalaman
                             ? null
                             : () {
-                                setState(() {
-                                  halaman++;
-                                });
-                              },
+                          setState(() {
+                            halaman++;
+                          });
+                        },
                       ),
                     ],
                   ),
@@ -101,17 +100,17 @@ class _ListBarangScreenState extends State<ListBarangScreen> {
   }
 }
 
-class BarangList extends StatefulWidget {
-  final List<dynamic> barangList;
-  const BarangList({Key? key, required this.barangList}) : super(key: key);
+class TransaksiList extends StatefulWidget {
+  final List<Transaksi> transaksiList;
+  const TransaksiList({Key? key, required this.transaksiList}) : super(key: key);
   @override
-  _BarangListState createState() => _BarangListState();
+  _TransaksiListState createState() => _TransaksiListState();
 }
 
-class _BarangListState extends State<BarangList> {
+class _TransaksiListState extends State<TransaksiList> {
   @override
   Widget build(BuildContext context) {
-    var data = widget.barangList;
+    var data = widget.transaksiList;
     return ListView.builder(
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
@@ -128,12 +127,12 @@ class _BarangListState extends State<BarangList> {
       color: Colors.white,
       child: ExpansionTile(
         title: Text(
-          items.namaBarang,
+          items.id.toString(),
           style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
         ),
         collapsedTextColor: Colors.black,
         textColor: Colors.black,
-        subtitle: Text("Id Barang " + items.id.toString()),
+        subtitle: Text("Id Transaksi " + items.id.toString()),
         children: <Widget>[
           Padding(
               padding: EdgeInsets.all(20),
@@ -142,15 +141,28 @@ class _BarangListState extends State<BarangList> {
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: [Text("Nama Barang")]),
+                      children: [
+                        Text("Waktu Transaksi"),
+                        Text("Total Transaksi"),
+
+                      ]),
                   SizedBox(width: 30),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: [Text(items.namaBarang), Text(items.hargaBarang.toString())],
-                  )
+                    children: [Text(items.waktu.toString()), Text(items.totalTransaksi.toString())],
+                  ),
+
                 ]),
-                
+                Row(children:[
+                  ElevatedButton(
+                    child: Text('Detail'),
+                    onPressed: () => Navigator.pushReplacementNamed(context, route.transaksiDetailPage),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.deepOrangeAccent
+                    )
+                  ),
+                ])
               ]))
         ],
       ),

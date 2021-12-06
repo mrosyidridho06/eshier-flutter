@@ -20,6 +20,49 @@ Map<String, dynamic> _$BarangToJson(Barang instance) => <String, dynamic>{
       'hargaBarang': instance.hargaBarang,
     };
 
+Transaksi _$TransaksiFromJson(Map<String, dynamic> json) {
+  return Transaksi(
+    id: json['id'] as int,
+    waktu: DateTime.parse(json['waktu'] as String),
+    totalTransaksi: json['totalTransaksi'] as int,
+  );
+}
+
+Map<String, dynamic> _$TransaksiToJson(Transaksi instance) => <String, dynamic>{
+      'id': instance.id,
+      'waktu': instance.waktu.toIso8601String(),
+      'totalTransaksi': instance.totalTransaksi,
+    };
+
+DetailTransaksi _$DetailTransaksiFromJson(Map<String, dynamic> json) {
+  return DetailTransaksi(
+    id: json['id'] as int,
+    waktu: DateTime.parse(json['waktu'] as String),
+    listBarang: (json['listBarang'] as List<dynamic>)
+        .map((e) => Barang.fromJson(e as Map<String, dynamic>))
+        .toList(),
+  );
+}
+
+Map<String, dynamic> _$DetailTransaksiToJson(DetailTransaksi instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'waktu': instance.waktu.toIso8601String(),
+      'listBarang': instance.listBarang,
+    };
+
+Success _$SuccessFromJson(Map<String, dynamic> json) {
+  return Success(
+    success: json['success'] as bool,
+    message: json['message'] as String,
+  );
+}
+
+Map<String, dynamic> _$SuccessToJson(Success instance) => <String, dynamic>{
+      'success': instance.success,
+      'message': instance.message,
+    };
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
@@ -62,6 +105,70 @@ class _RestClient implements RestClient {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = Barang.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<Success> addBarang(barang) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(barang.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<Success>(
+            Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
+                .compose(_dio.options, '/barang',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = Success.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<List<Transaksi>> getTransaksi() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<Transaksi>>(
+            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+                .compose(_dio.options, '/transaksi',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => Transaksi.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<DetailTransaksi> getTransaksiById(id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<DetailTransaksi>(
+            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+                .compose(_dio.options, '/transaksi/$id',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = DetailTransaksi.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<Success> addTransaksi(transaksi) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(transaksi.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<Success>(
+            Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
+                .compose(_dio.options, '/transaksi',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = Success.fromJson(_result.data!);
     return value;
   }
 
